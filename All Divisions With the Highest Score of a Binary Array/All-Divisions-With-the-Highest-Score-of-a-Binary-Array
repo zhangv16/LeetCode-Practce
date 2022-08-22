@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& nums) {
+        int left_score = 0;
+        int right_score = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            right_score += nums[i];
+        }
+        int max_score = left_score + right_score;
+        vector<int> result{0};
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {
+                left_score++;
+            } else {
+                right_score--;
+            }
+            if (left_score + right_score == max_score) {
+                result.push_back(i + 1);
+            } else if (left_score + right_score > max_score) {
+                result.clear();
+                result.push_back(i + 1);
+                max_score = left_score + right_score;
+            }
+        }
+        return result;
+    }
+};
